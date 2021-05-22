@@ -132,6 +132,38 @@ app.get('/ac/comfort', (req, res) => {
 });
 
 
+
+app.get('/ac/comfort/feedback', (req, res) => {
+
+    async function f() {
+
+        try {
+            client.feedback(
+                {
+                    room_name: 'kamar',
+                    location_name: 'rumah',
+                    value: 'freezing'
+                },
+                function (err, data) {
+                    if (err) {
+                        console.error(err);
+                        res.status(403).send(err);
+                        return;
+                    }
+                    console.log(data);
+                    res.status(200).send(data);
+                }
+            );
+
+
+        } catch (e) {
+            res.status(403).send(e)
+        }
+    }
+
+    f();
+});
+
 app.get('/ac/comfortmode/:value', (req, res) => {
 
     async function f() {
